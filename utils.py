@@ -1,4 +1,5 @@
 import asyncio
+import re 
 import json
 import logging
 import re
@@ -223,12 +224,14 @@ async def mdisk_droplink_convertor(user, text, alias=""):
     return links
 
 
-async def replace_username(text, username):
-    if username:
-        usernames = re.findall(r"@[A-Za-z0-9_]+", text)
-        for old_username in usernames:
-            text = text.replace(old_username, f"@{username}")
-    return text
+async def replace_username(text, url):
+    if url:
+                # টেক্সট থেকে টেলিগ্রাম লিঙ্কগুলো খুঁজে বের করা (যেমন: https://t.me/username)
+                telegram_links = re.findall(r"https://t\.me/[A-Za-z0-9_]+", text)
+                for old_link in telegram_links:
+                    # টেলিগ্রাম লিঙ্কের জায়গায় কাস্টম লিঙ্ক প্রতিস্থাপন করা হচ্ছে
+                    text = text.replace(old_link, url)
+            return text
 
 
 async def extract_link(string):
