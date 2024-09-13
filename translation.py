@@ -1,4 +1,4 @@
-from pyrogram.types
+from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
 
 BATCH_MESSAGE = BATCH = """
@@ -26,19 +26,15 @@ HELP_MESSAGE = """Hey there! My name is {firstname} and I'm a link convertor and
 I have a ton of handy features to help you out, such as:
 
 - [Hyperlink](https://t.me/{username}) support 🔗
-- Button conversion support 🔘
-- Domain inclusion and exclusion options 🌐
+- Button conversion support 
 - Header and footer text support 📝
 - Replace username function 📎
 - Banner image support 🖼️
-- Batch conversion for channel admins only 📊
-- Channel support for admins only 📢
 
 Useful commands:
 
 - /start: Start me up! You probably already used this.
 - /help: Send this message; I'll tell you more about myself!
-- /batch -100xxx: To shorten or convert all posts in your channel
 """
 
 ABOUT_TEXT = """
@@ -46,9 +42,13 @@ ABOUT_TEXT = """
 
 `🤖 Name:` ** {} **
     
+`📝 Language:` [Python 3](https://www.python.org/)
+`🧰 Framework:` [Pyrogram](https://github.com/pyrogram/pyrogram)
 """
 
 
+METHOD_MESSAGE = """
+"""
 
 CUSTOM_ALIAS_MESSAGE = """For custom alias, `[link] | [custom_alias]`, Send in this format
 
@@ -70,13 +70,77 @@ Here is a list of the channels:
 {channels}"""
 
 
+HELP_REPLY_MARKUP = InlineKeyboardMarkup(
+    [
+        [
+            InlineKeyboardButton("Methods", callback_data="method_command"),
+            InlineKeyboardButton("Batch", callback_data="cbatch_command"),
+        ],
+        [
+            InlineKeyboardButton("Custom Alias", callback_data="alias_conf"),
+            InlineKeyboardButton("Admins", callback_data="admins_list"),
+        ],
+        [
+            InlineKeyboardButton("Channels", callback_data="channels_list"),
+            InlineKeyboardButton("Home", callback_data="start_command"),
+        ],
+    ]
+)
+
+
+ABOUT_REPLY_MARKUP = InlineKeyboardMarkup(
+    [
+        [
+            InlineKeyboardButton("Home", callback_data="start_command"),
+            InlineKeyboardButton("Help", callback_data="help_command"),
+        ],
+        [InlineKeyboardButton("Close", callback_data="delete")],
+    ]
+)
+
+START_MESSAGE_REPLY_MARKUP = InlineKeyboardMarkup(
+    [
+        [
+            InlineKeyboardButton("Help", callback_data="help_command"),
+            InlineKeyboardButton("About", callback_data="about_command"),
+        ],
+        [
+            InlineKeyboardButton("Method", callback_data="method_command"),
+            InlineKeyboardButton("Close", callback_data="delete"),
+        ],
+    ]
+)
+
+METHOD_REPLY_MARKUP = InlineKeyboardMarkup(
+    [
+        [
+            InlineKeyboardButton(
+                "MDLINK", callback_data="change_method#mdlink"
+            ),
+            InlineKeyboardButton(
+                "Shortener", callback_data="change_method#shortener"
+            ),
+            InlineKeyboardButton("Mdisk", callback_data="change_method#mdisk"),
+        ],
+        [
+            InlineKeyboardButton("Back", callback_data="help_command"),
+            InlineKeyboardButton("Close", callback_data="delete"),
+        ],
+    ]
+)
+
+BACK_REPLY_MARKUP = InlineKeyboardMarkup(
+    [[InlineKeyboardButton("Back", callback_data="help_command")]]
+)
+
 USER_ABOUT_MESSAGE = """
 🔧 Here are the current settings for this bot:
 
 - 🌐 Shortener website: {base_site}
 
-- 🔌 {base_site} API: {shortener_api}
+- 🧰 Method: {method}
 
+- 🔌 {base_site} API: {shortener_api}
 
 - 📎 Username: @{username}
 
@@ -91,13 +155,13 @@ USER_ABOUT_MESSAGE = """
 
 
 
-
 SHORTENER_API_MESSAGE = """To add or update your Shortner Website API, 
 `/shortener_api [api]`
             
 Ex: `/shortener_api 6LZq851sXofffPHugiKQq`
 
 Current Website: {base_site}
+
 
 Current Shortener API: `{shortener_api}`"""
 
