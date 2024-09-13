@@ -11,14 +11,12 @@ For example: <code>/batch -100xxx</code>
 I'll handle the rest and get those links shortened or converted in a short time! 💪
 """
 
-START_MESSAGE = """Hi there {} 
+START_MESSAGE = """Hi {} 
 
 Send me a link or post and I'll shorten it for you!
 
 To learn more about what I can do, just type /help.
 
-Method: {}
-Shortener website: {}
 """
 
 HELP_MESSAGE = """Hey there! My name is {firstname} and I'm a link convertor and shortener bot here to make your work easier and help you earn more 💰.
