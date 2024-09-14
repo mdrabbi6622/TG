@@ -266,7 +266,6 @@ async def footer_handler(bot, m: Message):
         await update_user_info(user_id, {"footer_text": footer_text})
         await m.reply("Footer Text Updated Successfully")
 
-
 @Client.on_message(filters.command("username") & filters.private)
 @private_use
 async def username_handler(bot, m: Message):
@@ -275,8 +274,8 @@ async def username_handler(bot, m: Message):
     cmd = m.command
     
     if len(cmd) == 1:
-       username = user["username"] or None
-       return await m.reply(USERNAME_TEXT.format(username=username))
+        username = user["username"] or None
+        return await m.reply(USERNAME_TEXT.format(username=username))
                 
     elif len(cmd) == 2:
         if "remove" in cmd:
@@ -285,14 +284,14 @@ async def username_handler(bot, m: Message):
         else:
             input_data = cmd[1].strip()
             
-            if input_data.startswith("https://t.me/"):
-               username = input_data.replace("https://t.me/", "").strip()
-            else:
-                username = input_data
+        if input_data.startswith("https://t.me/"):
+            username = input_data.replace("https://t.me/", "").strip()
+        else:
+            username = input_data
             
-            await update_user_info(user_id, {"username": username})
-            await m.reply(f"Username updated successfully to {username}")
-            
+        await update_user_info(user_id, {"username": username})
+        await m.reply(f"Username updated successfully to {username}")
+
 @Client.on_message(filters.command("banner_image") & filters.private)
 @private_use
 async def banner_image_handler(bot, m: Message):
