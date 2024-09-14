@@ -11,46 +11,54 @@ For example: <code>/batch -100xxx</code>
 I'll handle the rest and get those links shortened or converted in a short time! 💪
 """
 
-START_MESSAGE = """
-**Hi {} 
+START_MESSAGE = """Hi {}, 
 
-I am BDSHORTNER Bulk Link Converter Bot. I Can Convert Links Directly From Your BDSHORTNER Account,
-    
-1. Go To https://bdshortner.com/member/tools/api
-2. Then Copy API Key
-3. Then Type /api than give a single space and than paste your API Key (see example to understand more...)
+**Send me a link or post and I'll shorten it for you!
 
-To learn more about what I can do, just 
-type /help.**
-
+To learn more about what I can do, just
+type /help**
 """
 
-HELP_MESSAGE = """**Hey there! My name is {firstname} and I'm a link convertor and shortener bot here to make your work easier and help you earn more 💰.
+HELP_MESSAGE = """Hey there! My name is {firstname} and I'm a link convertor and shortener bot here to make your work easier and help you earn more 💰.
 
 I have a ton of handy features to help you out, such as:
 
-- https://t.me/naimur_0 (support) 🔗
-- Button conversion support 
+- [Hyperlink](https://t.me/{username}) support 🔗
+- Button conversion support 🔘
+- Domain inclusion and exclusion options 🌐
 - Header and footer text support 📝
 - Replace username function 📎
 - Banner image support 🖼️
 
 Useful commands:
 
-- /help: Send this message; I'll tell you more about myself!**
+- /start: Start me up! You probably already used this.
+- /help: Send this message; I'll tell you more about myself!
 """
 
 ABOUT_TEXT = """
-**My Details:
+**My Details:**
 
 `🤖 Name:` ** {} **
     
 `📝 Language:` [Python 3](https://www.python.org/)
-`🧰 Framework:` [Pyrogram](https://github.com/pyrogram/pyrogram)**
+`🧰 Framework:` [Pyrogram](https://github.com/pyrogram/pyrogram)
+`📢 Support:` [Talk Bot](https://t.me/naimur_0)
 """
 
 
 METHOD_MESSAGE = """
+Current Method: {method}
+    
+Methods Available:
+
+> `mdlink` - Change all the links of the post to your MDisk account first and then short to {shortener} link.
+
+> `shortener` - Short all the links of the post to {shortener} link directly.
+
+> `mdisk` - Save all the links of the post to your Mdisk account.
+    
+To change method, choose it from the following options:
 """
 
 CUSTOM_ALIAS_MESSAGE = """For custom alias, `[link] | [custom_alias]`, Send in this format
@@ -72,6 +80,7 @@ Here is a list of the channels:
 
 {channels}"""
 
+
 HELP_REPLY_MARKUP = InlineKeyboardMarkup(
     [
         [
@@ -84,7 +93,7 @@ HELP_REPLY_MARKUP = InlineKeyboardMarkup(
         ],
         [
             InlineKeyboardButton("", callback_data=""),
-            InlineKeyboardButton("", callback_data=""),
+            InlineKeyboardButton("Home", callback_data="start_command"),
         ],
     ]
 )
@@ -103,12 +112,12 @@ ABOUT_REPLY_MARKUP = InlineKeyboardMarkup(
 START_MESSAGE_REPLY_MARKUP = InlineKeyboardMarkup(
     [
         [
-            InlineKeyboardButton("", callback_data=""),
-            InlineKeyboardButton("", callback_data=""),
+            InlineKeyboardButton("Help", callback_data="help_command"),
+            InlineKeyboardButton("About", callback_data="about_command"),
         ],
         [
             InlineKeyboardButton("", callback_data=""),
-            InlineKeyboardButton("", callback_data=("")),
+            InlineKeyboardButton("Close", callback_data="delete"),
         ],
     ]
 )
@@ -117,30 +126,28 @@ METHOD_REPLY_MARKUP = InlineKeyboardMarkup(
     [
         [
             InlineKeyboardButton(
-                "", callback_data=""
+                "MDLINK", callback_data="change_method#mdlink"
             ),
             InlineKeyboardButton(
-                "", callback_data=""
+                "Shortener", callback_data="change_method#shortener"
             ),
-            InlineKeyboardButton("", callback_data=""),
+            InlineKeyboardButton("Mdisk", callback_data="change_method#mdisk"),
         ],
         [
-            InlineKeyboardButton("", callback_data=""),
-            InlineKeyboardButton("", callback_data=""),
+            InlineKeyboardButton("Back", callback_data="help_command"),
+            InlineKeyboardButton("Close", callback_data="delete"),
         ],
     ]
 )
 
 BACK_REPLY_MARKUP = InlineKeyboardMarkup(
-    [[InlineKeyboardButton("", callback_data="")]]
+    [[InlineKeyboardButton("Back", callback_data="help_command")]]
 )
 
-USER_ABOUT_MESSAGE = """**
+USER_ABOUT_MESSAGE = """
 🔧 Here are the current settings for this bot:
 
-- 🌐 Shortner website: bdshortner.com
-
-- ✅ API: {shortener_api}
+- ❤️ Website Link: bdshortner.com
 
 - 📎 Username: @{username}
 
@@ -150,39 +157,48 @@ USER_ABOUT_MESSAGE = """**
 - 📝 Footer text:
 {footer_text}
 
-🖼️ Banner image: {banner_image}**
+🖼️ Banner image: {banner_image}
 """
 
 
-
-SHORTENER_API_MESSAGE = """**🔰Go To BDSHORTNER website. 
-🔰Then Copy API Key. 
-🔰Then Type /shortener_api then give a single space and then paste your API Key & press Enter
+MDISK_API_MESSAGE = """To add or update your Mdisk API, \n`/mdisk_api mdisk_api`
             
-Example: `/shortener_api 6LZq851sXofffPHugiKQq`
+Ex: `/mdisk_api 6LZq851sXoPHugiKQq`
+            
+Others Mdisk Links will be automatically changed to the API of this Mdisk account
 
-Go to 'https://bdshortner.com/member/tools/api'
+Get your Mdisk API from @VideoToolMoneyTreebot
 
+Current Mdisk API: `{}`"""
 
-Current Shortener API: `{shortener_api}`**"""
+SHORTENER_API_MESSAGE = """To add or update your Shortner Website API, 
+`/shortener_api [api]`
+            
+Ex: `/shortener_api 6LZq851sXofffPHugiKQq`
 
-HEADER_MESSAGE = """**📝 To set the header text for every message caption or text, just reply with the text you want to use. You can use \\n to add a line break.
+Current Website: {base_site}
+
+To change your Shortener Website: /base_site
+
+Current Shortener API: `{shortener_api}`"""
+
+HEADER_MESSAGE = """📝 To set the header text for every message caption or text, just reply with the text you want to use. You can use \\n to add a line break.
 
 🗑 To remove the header text, use the following command:
 
 `/header remove`
 
-This is a helpful way to add a consistent header to all of your messages. Enjoy! **🎉"""
+This is a helpful way to add a consistent header to all of your messages. Enjoy! 🎉"""
 
-FOOTER_MESSAGE = """**📝 To set the footer text for every message caption or text, just reply with the text you want to use. You can use \\n to add a line break.
+FOOTER_MESSAGE = """📝 To set the footer text for every message caption or text, just reply with the text you want to use. You can use \\n to add a line break.
 
 🗑 To remove the footer text, use the following command:
 
 `/footer remove`
 
-This is a helpful way to add a consistent footer to all of your messages. Enjoy! **🎉"""
+This is a helpful way to add a consistent footer to all of your messages. Enjoy! 🎉"""
 
-USERNAME_TEXT = """**Current username: {username}
+USERNAME_TEXT = """Current username: {username}
 
 To set the username that will be automatically replaced with other usernames in the post, use the following command:
 
@@ -194,16 +210,16 @@ To remove the current username, use the following command:
 
 `/username remove`
 
-This is a helpful way to make sure that all of your posts have a consistent username. Enjoy! 📎**"""
+This is a helpful way to make sure that all of your posts have a consistent username. Enjoy! 📎"""
 
-BANNER_IMAGE = """**
+BANNER_IMAGE = """
 Usage: `/banner_image image_url` or reply to any Image with this command
 
 This image will be automatically replaced with other images in the post
 
 To remove custom image, `/banner_image remove`
 
-Eg: `/banner_image https://www.nicepng.com/png/detail/436-4369539_movie-logo-film.png`**"""
+Eg: `/banner_image https://www.nicepng.com/png/detail/436-4369539_movie-logo-film.png`"""
 
 INCLUDE_DOMAIN_TEXT = """
 Use this option if you want to short only links from the following domains list.
