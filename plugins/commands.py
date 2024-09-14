@@ -30,6 +30,7 @@ user_commands = [
     "base_site",
     "me",
 ]
+
 avl_web = [
     "bdshortner.com",
     "gplinks.in",
@@ -76,7 +77,6 @@ async def start(c: Client, m: Message):
     await m.reply_text(
         t, reply_markup=START_MESSAGE_REPLY_MARKUP, disable_web_page_preview=True
     )
-
 
 @Client.on_message(filters.command("help") & filters.private)
 @private_use
@@ -270,28 +270,28 @@ async def footer_handler(bot, m: Message):
 @Client.on_message(filters.command("username") & filters.private)
 @private_use
 async def username_handler(bot, m: Message):
-     user_id = m.from_user.id
-     user = await get_user(user_id)
-     cmd = m.command
-     if len(cmd) == 1:
-        username = user["username"] or None
-        return await m.reply(USERNAME_TEXT.format(username=username))
+    user_id = m.from_user.id
+    user = await get_user(user_id)
+    cmd = m.command
+    
+    if len(cmd) == 1:
+       username = user["username"] or None
+       return await m.reply(USERNAME_TEXT.format(username=username))
                 
-        elif len(cmd) == 2:
-     if "remove" in cmd:
-           await update_user_info(user_id, {"username": ""})
-           return await m.reply("Username Successfully Removed")
-     else:
-           input_data = cmd[1].strip()
-                        
-                        # যদি ইনপুটটি টেলিগ্রাম লিংক হয়
-     if input_data.startswith("https://t.me/"):
-        username = input_data.replace("https://t.me/", "").strip()
-     else:
-         username = input_data  # ইনপুট সরাসরি ইউজারনেম ধরে নেয়া হবে
+    elif len(cmd) == 2:
+        if "remove" in cmd:
+            await update_user_info(user_id, {"username": ""})
+            return await m.reply("Username Successfully Removed")
+        else:
+            input_data = cmd[1].strip()
             
-          await update_user_info(user_id, {"username": username})
-          await m.reply(f"Username updated successfully to {username}")
+            if input_data.startswith("https://t.me/"):
+        username = input_data.replace("https://t.me/", "").strip()
+            else:
+                username = input_data
+            
+            await update_user_info(user_id, {"username": username})
+            await m.reply(f"Username updated successfully to {username}")
             
 @Client.on_message(filters.command("banner_image") & filters.private)
 @private_use
@@ -531,7 +531,8 @@ async def get_user_info_handler(c: Client, m: Message):
             footer_text=user["footer_text"].replace("\n", "\n")
             if user["footer_text"]
             else None,
-            banner_image=user["banner_image"],
+            banner_
+image=user["banner_image"],
         )
 
         res = f'User: `{user["user_id"]}`\n{res}'
