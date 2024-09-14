@@ -274,10 +274,10 @@ async def username_handler(bot, m: Message):
      user = await get_user(user_id)
      cmd = m.command
      if len(cmd) == 1:
-     username = user["username"] or None
+        username = user["username"] or None
         return await m.reply(USERNAME_TEXT.format(username=username))
                 
-         elif len(cmd) == 2:
+        elif len(cmd) == 2:
      if "remove" in cmd:
            await update_user_info(user_id, {"username": ""})
            return await m.reply("Username Successfully Removed")
@@ -291,7 +291,7 @@ async def username_handler(bot, m: Message):
          username = input_data  # ইনপুট সরাসরি ইউজারনেম ধরে নেয়া হবে
             
           await update_user_info(user_id, {"username": username})
-           await m.reply(f"Username updated successfully to {username}")
+          await m.reply(f"Username updated successfully to {username}")
             
 @Client.on_message(filters.command("banner_image") & filters.private)
 @private_use
