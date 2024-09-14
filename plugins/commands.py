@@ -286,7 +286,7 @@ async def username_handler(bot, m: Message):
             input_data = cmd[1].strip()
             
             if input_data.startswith("https://t.me/"):
-        username = input_data.replace("https://t.me/", "").strip()
+               username = input_data.replace("https://t.me/", "").strip()
             else:
                 username = input_data
             
