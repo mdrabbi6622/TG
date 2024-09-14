@@ -530,8 +530,7 @@ async def get_user_info_handler(c: Client, m: Message):
             footer_text=user["footer_text"].replace("\n", "\n")
             if user["footer_text"]
             else None,
-            banner_
-image=user["banner_image"],
+            banner_image=user["banner_image"],
         )
 
         res = f'User: `{user["user_id"]}`\n{res}'
