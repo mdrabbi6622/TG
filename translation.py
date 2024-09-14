@@ -11,7 +11,8 @@ For example: <code>/batch -100xxx</code>
 I'll handle the rest and get those links shortened or converted in a short time! 💪
 """
 
-START_MESSAGE = """**Hi {} 
+START_MESSAGE = """
+**Hi {} 
 
 I am BDSHORTNER Bulk Link Converter Bot. I Can Convert Links Directly From Your BDSHORTNER Account,
     
@@ -72,68 +73,6 @@ Here is a list of the channels:
 {channels}"""
 
 
-HELP_REPLY_MARKUP = InlineKeyboardMarkup(
-    [
-        [
-            InlineKeyboardButton("", callback_data=""),
-            InlineKeyboardButton("", callback_data=""),
-        ],
-        [
-            InlineKeyboardButton("", callback_data=""),
-            InlineKeyboardButton("", callback_data=""),
-        ],
-        [
-            InlineKeyboardButton("", callback_data=""),
-            InlineKeyboardButton("", callback_data=""),
-        ],
-    ]
-)
-
-
-ABOUT_REPLY_MARKUP = InlineKeyboardMarkup(
-    [
-        [
-            InlineKeyboardButton("", callback_data=""),
-            InlineKeyboardButton("", callback_data=""),
-        ],
-        [InlineKeyboardButton("", callback_data="")],
-    ]
-)
-
-START_MESSAGE_REPLY_MARKUP = InlineKeyboardMarkup(
-    [
-        [
-            InlineKeyboardButton("", callback_data=""),
-            InlineKeyboardButton("", callback_data=""),
-        ],
-        [
-            InlineKeyboardButton("", callback_data=""),
-            InlineKeyboardButton("", callback_data=""),
-        ],
-    ]
-)
-
-METHOD_REPLY_MARKUP = InlineKeyboardMarkup(
-    [
-        [
-            InlineKeyboardButton(
-                "", callback_data=""
-            ),
-            InlineKeyboardButton(
-                "", callback_data=""
-            ),
-            InlineKeyboardButton("", callback_data=""),
-        ],
-        [
-            InlineKeyboardButton("", callback_data=""),
-            InlineKeyboardButton("", callback_data=""),
-        ],
-    ]
-)
-
-BACK_REPLY_MARKUP = InlineKeyboardMarkup(
-    [[InlineKeyboardButton("", callback_data="")]]
-)
 
 USER_ABOUT_MESSAGE = """**
 🔧 Here are the current settings for this bot:
