@@ -540,4 +540,4 @@ async def get_user_info_handler(c: Client, m: Message):
         return await m.reply_text(res, reply_markup=reply_markup, quote=True)
     except Exception as e:
         await m.reply_text(e)
-        logging.error(e): 
+        logging.error(e)
