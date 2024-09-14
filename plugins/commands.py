@@ -268,22 +268,38 @@ async def footer_handler(bot, m: Message):
 
 
 @Client.on_message(filters.command("username") & filters.private)
-@private_use
-async def username_handler(bot, m: Message):
-    user_id = m.from_user.id
-    user = await get_user(user_id)
-    cmd = m.command
-    if len(cmd) == 1:
-        username = user["username"] or None
-        return await m.reply(USERNAME_TEXT.format(username=username))
-    elif len(cmd) == 2:
-        if "remove" in cmd:
-            await update_user_info(user_id, {"username": ""})
-            return await m.reply("Username Successfully Removed")
-        else:
-            username = cmd[1].strip().replace("@", "")
-            await update_user_info(user_id, {"username": username})
-            await m.reply(f"Username updated successfully to {username}")
+            @private_use
+            async def username_handler(bot, m: Message):
+                user_id = m.from_user.id
+                user = await get_user(user_id)
+                cmd = m.command
+            
+                if len(cmd) == 1:
+                    # ইউজারনেম দেখানোর অংশ
+                    username = user["username"] or None
+                    return await m.reply(USERNAME_TEXT.format(username=username))
+                
+                elif len(cmd) == 2:
+                    if "remove" in cmd:
+                        # ইউজারনেম মুছে ফেলার অংশ
+                        await update_user_info(user_id, {"username": ""})
+                        return await m.reply("Username Successfully Removed")
+                    else:
+                        # লিংক থেকে ইউজারনেম পাওয়ার চেষ্টা
+                        input_data = cmd[1].strip()
+                        
+                        # যদি ইনপুটটি টেলিগ্রাম লিংক হয়
+                        if input_data.startswith("https://t.me/"):
+                            username = input_data.replace("https://t.me/", "").strip()
+                        else:
+                            username = input_data  # ইনপুট সরাসরি ইউজারনেম ধরে নেয়া হবে
+            
+                        await update_user_info(user_id, {"username": username})
+                        await m.reply(f"Username updated successfully to {username}")
+            
+            
+            
+            
 
 
 @Client.on_message(filters.command("banner_image") & filters.private)

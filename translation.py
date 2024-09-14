@@ -72,7 +72,68 @@ Here is a list of the channels:
 
 {channels}"""
 
+HELP_REPLY_MARKUP = InlineKeyboardMarkup(
+    [
+        [
+            InlineKeyboardButton("", callback_data=""),
+            InlineKeyboardButton("", callback_data=""),
+        ],
+        [
+            InlineKeyboardButton("", callback_data=""),
+            InlineKeyboardButton("", callback_data=""),
+        ],
+        [
+            InlineKeyboardButton("", callback_data=""),
+            InlineKeyboardButton("", callback_data=""),
+        ],
+    ]
+)
 
+
+ABOUT_REPLY_MARKUP = InlineKeyboardMarkup(
+    [
+        [
+            InlineKeyboardButton("Home", callback_data="start_command"),
+            InlineKeyboardButton("Help", callback_data="help_command"),
+        ],
+        [InlineKeyboardButton("Close", callback_data="delete")],
+    ]
+)
+
+START_MESSAGE_REPLY_MARKUP = InlineKeyboardMarkup(
+    [
+        [
+            InlineKeyboardButton("", callback_data=""),
+            InlineKeyboardButton("", callback_data=""),
+        ],
+        [
+            InlineKeyboardButton("", callback_data=""),
+            InlineKeyboardButton("", callback_data=("")),
+        ],
+    ]
+)
+
+METHOD_REPLY_MARKUP = InlineKeyboardMarkup(
+    [
+        [
+            InlineKeyboardButton(
+                "", callback_data=""
+            ),
+            InlineKeyboardButton(
+                "", callback_data=""
+            ),
+            InlineKeyboardButton("", callback_data=""),
+        ],
+        [
+            InlineKeyboardButton("", callback_data=""),
+            InlineKeyboardButton("", callback_data=""),
+        ],
+    ]
+)
+
+BACK_REPLY_MARKUP = InlineKeyboardMarkup(
+    [[InlineKeyboardButton("", callback_data="")]]
+)
 
 USER_ABOUT_MESSAGE = """**
 🔧 Here are the current settings for this bot:

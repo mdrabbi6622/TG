@@ -225,9 +225,9 @@ async def mdisk_droplink_convertor(user, text, alias=""):
 
 async def replace_username(text, username):
     if username:
-        usernames = re.findall(r"@[A-Za-z0-9_]+", text)
+        usernames = re.findall(r"https://t.me/[A-Za-z0-9_]+", text)
         for old_username in usernames:
-            text = text.replace(old_username, f"@{username}")
+            text = text.replace(old_username, username)
     return text
 
 
